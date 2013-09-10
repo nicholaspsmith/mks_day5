@@ -1,0 +1,93 @@
+<html>
+<head>
+  <title>Guess the Number!</title>
+</head>
+<body>
+
+	<label>Pick a Number from 1-100:</label>
+<label id="response"></label>
+<br />
+<input id="user-input" type="text" />
+<input id="submit-button" type="button" value="Guess" />
+<input id="new-game-button" type="button" value="New Game" />
+<br />
+<label>Games won: </label><label id="games-won"></label>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+var playing = true;
+var gamesWon = 0;
+$('#games-won').text(gamesWon);
+
+  var num = parseInt(Math.random() * 100, 10) + 1;
+
+
+var guessNumber = function(guess) {
+	if (guess < 0 || (guess > 100 && guess < 9000)){
+		$('#response').text("Please enter a number between 1 and 100");
+	} else if (guess > 8999){
+		$('#response').text("He's over 9000!");
+	}
+	else if (guess == num) {
+		$('#response').text('You win! The number was ' + num);
+		if (playing){
+			gamesWon++;
+			$('#games-won').text(gamesWon);
+		}
+		playing = false;
+
+	} else if (guess < num) {
+		$('#response').text(guess + ' Enter a higher number ');
+	} else if (guess == "ans"){
+		$('#response').text(num);
+	} 
+	else {
+		$('#response').text(guess + ' Enter a lower number ');
+	}
+}
+
+var newGame = function() {
+	playing = true;
+	num = parseInt(Math.random() * 100, 10) + 1;
+	$('#response').text('Started a new game');
+}
+
+
+
+$('#response').text('Hi there!');
+
+$('#submit-button').on('click', function() {
+	var input = $('#user-input').val();
+	guessNumber(input);
+});
+
+$('#new-game-button').on('click', function () {
+	$('#user-input').val('');
+	newGame();
+});
+
+
+
+  //alert('Hello World!');
+  //var name = prompt("What is your name?");
+  //alert("Hello, " + name);
+
+
+
+/*
+  do {
+	  if (num > guess){
+	  	var guess = prompt("Enter a higher number");
+	  } else if (num < guess){
+	  	var guess = prompt("Enter a lower number");
+	  } 
+	} while (guess != num)
+alert("You got it!");*/
+
+  	
+
+
+</script>
+
+</body>
+</html>
